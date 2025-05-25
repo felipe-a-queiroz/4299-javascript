@@ -1,4 +1,4 @@
-import { criarItemDaLista } from "./scripts/criarItemDaLista.js";
+import criarItemDaLista from "./scripts/criarItemDaLista.js";
 const listaDeCompras = document.getElementById("lista-de-compras");
 const mensagemListaVazia = document.getElementById("mensagem-lista-vazia");
 
@@ -16,8 +16,7 @@ function verificarListaVazia() {
 
 function adicionarItem(evento) {
     evento.preventDefault();
-    const itemDaLista = criarItemDaLista();
-    listaDeCompras.appendChild(itemDaLista);
+    listaDeCompras.appendChild(criarItemDaLista());
     verificarListaVazia();
 }
 
