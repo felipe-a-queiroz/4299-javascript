@@ -1,10 +1,20 @@
 const inputItem = document.getElementById("input-item")
 const listaDeCompras = document.getElementById("lista-de-compras");
+const mensagemListaVazia = document.getElementById("mensagem-lista-vazia");
 
 const botaoAdicionar = document.getElementById("adicionar-item");
 botaoAdicionar.addEventListener("click", adicionarItem);
 
 let contador = 0;
+
+function verificaListaVazia() {
+    const itensDaLista = listaDeCompras.querySelectorAll("li");
+    if (itensDaLista.length === 0) {
+        mensagemListaVazia.style.display = "block";
+    } else {
+        mensagemListaVazia.style.display = "none";
+    }
+}
 
 function adicionarItem(evento) {
     evento.preventDefault();
@@ -25,6 +35,7 @@ function adicionarItem(evento) {
 
     listaDeCompras.appendChild(itemDaLista);
     inputItem.value = "";
+    verificaListaVazia();
 }
 
 function criarDataDoItem() {
