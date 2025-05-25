@@ -1,5 +1,5 @@
 const inputItem = document.getElementById("input-item")
-const lista = document.getElementById("lista-de-compras");
+const listaDeCompras = document.getElementById("lista-de-compras");
 
 const botaoAdicionar = document.getElementById("adicionar-item");
 botaoAdicionar.addEventListener("click", adicionarItem);
@@ -16,20 +16,20 @@ function adicionarItem(evento) {
         alert("Digite um item");
         return;
     }
-    const li = document.createElement("li");
-    const container = criarContainer(valorItem);
-    li.appendChild(container);
+    const itemDaLista = document.createElement("li");
+    const containerItemDaLista = criarContainer(valorItem);
+    itemDaLista.appendChild(containerItemDaLista);
 
-    const textoDeDataDoItem = criarDataDoItem();
-    li.appendChild(textoDeDataDoItem);
+    const itemData = criarDataDoItem();
+    itemDaLista.appendChild(itemData);
 
-    lista.appendChild(li);
+    listaDeCompras.appendChild(itemDaLista);
     inputItem.value = "";
 }
 
 function criarDataDoItem() {
-    const textoDeDataDoItem = document.createElement("p");
-    textoDeDataDoItem.className = "texto-data";
+    const itemData = document.createElement("p");
+    itemData.className = "texto-data";
     const dataAtual = new Date();
 
     const diaDaSemana = new Date().toLocaleDateString('pt-BR', {
@@ -38,14 +38,14 @@ function criarDataDoItem() {
 
     const data = new Date().toLocaleDateString('pt-BR');
     const hora = dataAtual.toLocaleTimeString('pt-BR', {
-        hour: '2-digit',
-        minute: '2-digit'
+        hour: 'numeric',
+        minute: 'numeric'
     });
 
     const dataCompleta = `${diaDaSemana} (${data}) às ${hora}`;
 
-    textoDeDataDoItem.innerHTML = dataCompleta;
-    return textoDeDataDoItem;
+    itemData.innerHTML = dataCompleta;
+    return itemData;
 }
 
 function criarContainer(valorItem) {
@@ -56,11 +56,20 @@ function criarContainer(valorItem) {
     checkbox.type = "checkbox";
     checkbox.className = "checkbox-" + contador++;
 
-    const novoItem = document.createElement("p");
-    novoItem.innerHTML = valorItem;
+    const nomeItem = document.createElement("p");
+    nomeItem.innerHTML = valorItem;
 
     container.appendChild(checkbox);
-    container.appendChild(novoItem);
+    container.appendChild(nomeItem);
+
+    checkbox.addEventListener("click", function () {
+        if (checkbox.checked) {
+            nomeItem.style.textDecoration = "line-through";
+        }
+        else {
+            nomeItem.style.textDecoration = "none";
+        }
+    });
     return container;
 }
 
