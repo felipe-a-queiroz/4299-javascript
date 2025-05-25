@@ -1,6 +1,9 @@
 const inputItem = document.getElementById("input-item")
 
 const botaoAdicionar = document.getElementById("adicionar-item");
+const lista = document.getElementById("lista-de-compras");
+
+let contador = 0;
 botaoAdicionar.addEventListener("click", (evento) => {
     evento.preventDefault();
     let valorItem = inputItem.value;
@@ -8,14 +11,13 @@ botaoAdicionar.addEventListener("click", (evento) => {
         alert("Digite um item");
         return;
     }
-    const lista = document.getElementById("lista-de-compras");
     const li = document.createElement("li");
     const container = document.createElement("div");
     container.className = "lista-item-container";
 
     const checkbox = document.createElement("input");
     checkbox.type = "checkbox";
-    checkbox.className = "checkbox-" + (document.querySelectorAll("#lista-de-compras li").length + 1);
+    checkbox.className = "checkbox-" + contador++;
 
     const novoItem = document.createElement("p");
     novoItem.innerHTML = valorItem;
