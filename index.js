@@ -1,7 +1,8 @@
 const inputItem = document.getElementById("input-item")
+const lista = document.getElementById("lista-de-compras");
 
 const botaoAdicionar = document.getElementById("adicionar-item");
-const lista = document.getElementById("lista-de-compras");
+botaoAdicionar.addEventListener("click", adicionarItem);
 
 let contador = 0;
 
@@ -16,6 +17,38 @@ function adicionarItem(evento) {
         return;
     }
     const li = document.createElement("li");
+    const container = criarContainer(valorItem);
+    li.appendChild(container);
+
+    const textoDeDataDoItem = criarDataDoItem();
+    li.appendChild(textoDeDataDoItem);
+
+    lista.appendChild(li);
+    inputItem.value = "";
+}
+
+function criarDataDoItem() {
+    const textoDeDataDoItem = document.createElement("p");
+    textoDeDataDoItem.className = "texto-data";
+    const dataAtual = new Date();
+
+    const diaDaSemana = new Date().toLocaleDateString('pt-BR', {
+        weekday: 'long'
+    });
+
+    const data = new Date().toLocaleDateString('pt-BR');
+    const hora = dataAtual.toLocaleTimeString('pt-BR', {
+        hour: '2-digit',
+        minute: '2-digit'
+    });
+
+    const dataCompleta = `${diaDaSemana} (${data}) às ${hora}`;
+
+    textoDeDataDoItem.innerHTML = dataCompleta;
+    return textoDeDataDoItem;
+}
+
+function criarContainer(valorItem) {
     const container = document.createElement("div");
     container.className = "lista-item-container";
 
@@ -28,26 +61,6 @@ function adicionarItem(evento) {
 
     container.appendChild(checkbox);
     container.appendChild(novoItem);
-    li.appendChild(container);
-
-    const textoDeDataDoItem = document.createElement("p");
-    textoDeDataDoItem.className = "texto-data";
-    const dataAtual = new Date();
-    const opcoesDiaDaSemana = { weekday: 'long' };
-    const opcoesData = { day: '2-digit', month: '2-digit', year: 'numeric' };
-    const opcoesHora = { hour: '2-digit', minute: '2-digit' };
-
-    const diaDaSemana = dataAtual.toLocaleDateString('pt-BR', opcoesDiaDaSemana);
-    const diaDaSemanaFormatado = diaDaSemana.charAt(0).toUpperCase() + diaDaSemana.slice(1);
-
-    const dataFormatada = dataAtual.toLocaleDateString('pt-BR', opcoesData);
-    const horaFormatada = dataAtual.toLocaleTimeString('pt-BR', opcoesHora);
-
-    textoDeDataDoItem.innerHTML = `${diaDaSemanaFormatado} (${dataFormatada}) às ${horaFormatada}`;
-    li.appendChild(textoDeDataDoItem);
-
-    lista.appendChild(li);
-    inputItem.value = "";
+    return container;
 }
 
-botaoAdicionar.addEventListener("click", adicionarItem);
