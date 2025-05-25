@@ -4,9 +4,13 @@ const botaoAdicionar = document.getElementById("adicionar-item");
 const lista = document.getElementById("lista-de-compras");
 
 let contador = 0;
-botaoAdicionar.addEventListener("click", (evento) => {
+
+function adicionarItem(evento) {
     evento.preventDefault();
     let valorItem = inputItem.value;
+
+    console.log(valorItem);
+
     if (valorItem === "") {
         alert("Digite um item");
         return;
@@ -44,5 +48,6 @@ botaoAdicionar.addEventListener("click", (evento) => {
 
     lista.appendChild(li);
     inputItem.value = "";
+}
 
-});
+botaoAdicionar.addEventListener("click", adicionarItem);
